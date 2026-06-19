@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Fleurs de Dieu — Radio chrétienne adventiste en ligne</title>
+<meta name="description" content="Radio Fleurs de Dieu (RFDD) — radio chrétienne adventiste en ligne. Une proximité avec Dieu dans l'évangélisation. Prières, témoignages, musique et nouvelles chrétiennes.">
+<link rel="icon" type="image/jpeg" href="assets/logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --vert-profond:#1f5c3d;
+    --vert:#2e7d52;
+    --vert-clair:#5aa67c;
+    --creme:#f6f3ea;
+    --creme-fonce:#ece6d6;
+    --dore:#c79a4b;
+    --dore-clair:#e3c889;
+    --encre:#16221c;
+    --texte:#33403a;
+    --blanc:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--texte);
+    background:var(--creme);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:500;color:var(--encre);line-height:1.15}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,243,234,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--creme-fonce);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{height:46px;width:auto;border-radius:6px}
+  .brand-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--vert-profond);letter-spacing:.01em}
+  .nav-links{display:flex;align-items:center;gap:28px}
+  .nav-links a{font-size:.95rem;font-weight:500;color:var(--texte);transition:color .2s}
+  .nav-links a:hover{color:var(--vert)}
+  .btn-don{
+    background:var(--dore);color:var(--encre);
+    padding:10px 20px;border-radius:999px;font-weight:600;font-size:.92rem;
+    transition:transform .15s,background .2s;
+  }
+  .btn-don:hover{background:var(--dore-clair);transform:translateY(-1px)}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;font-size:1.6rem;color:var(--vert-profond)}
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(160deg,var(--vert-profond) 0%,var(--vert) 60%,#27693f 100%);
+    color:var(--creme);
+    padding:72px 0 84px;
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;right:-120px;top:-80px;width:420px;height:420px;
+    background:radial-gradient(circle,rgba(231,200,137,.18),transparent 70%);
+    border-radius:50%;
+  }
+  .hero .wrap{position:relative;z-index:2}
+  .eyebrow{
+    display:inline-block;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--dore-clair);font-weight:600;margin-bottom:18px;
+  }
+  .hero h1{color:var(--creme);font-size:clamp(2.2rem,5vw,3.5rem);max-width:14ch;margin-bottom:18px}
+  .hero p.lead{font-size:1.15rem;max-width:46ch;color:rgba(246,243,234,.88);margin-bottom:36px}
+
+  /* Player */
+  .player{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(231,200,137,.25);
+    border-radius:18px;
+    padding:24px;
+    display:flex;align-items:center;gap:20px;
+    max-width:560px;
+    backdrop-filter:blur(4px);
+  }
+  .play-btn{
+    flex-shrink:0;width:64px;height:64px;border-radius:50%;
+    background:var(--dore);color:var(--encre);border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .15s,background .2s;
+  }
+  .play-btn:hover{background:var(--dore-clair);transform:scale(1.05)}
+  .play-btn svg{width:26px;height:26px}
+  .player-info{flex:1;min-width:0}
+  .player-status{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--dore-clair);font-weight:600;letter-spacing:.04em;margin-bottom:4px}
+  .live-dot{width:9px;height:9px;border-radius:50%;background:#e0563f;box-shadow:0 0 0 0 rgba(224,86,63,.6);animation:pulse 1.8s infinite}
+  .live-dot.on{background:#7ee0a0;box-shadow:0 0 0 0 rgba(126,224,160,.6)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(224,86,63,.5)}70%{box-shadow:0 0 0 10px rgba(224,86,63,0)}100%{box-shadow:0 0 0 0 rgba(224,86,63,0)}}
+  .player-title{font-family:'Fraunces',serif;font-size:1.2rem;color:var(--creme);font-weight:500}
+  .player-sub{font-size:.88rem;color:rgba(246,243,234,.7)}
+  .vol{display:flex;align-items:center;gap:8px;margin-top:10px}
+  .vol input{width:100%;accent-color:var(--dore)}
+
+  /* Sections */
+  section.block{padding:72px 0}
+  .section-head{text-align:center;max-width:60ch;margin:0 auto 48px}
+  .section-head .eyebrow{color:var(--vert)}
+  .section-head h2{font-size:clamp(1.8rem,3.5vw,2.5rem);margin-bottom:14px}
+  .section-head p{color:var(--texte);opacity:.85}
+
+  /* Programmes */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+  .card{
+    background:var(--blanc);border:1px solid var(--creme-fonce);border-radius:16px;
+    padding:28px;transition:transform .2s,box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(31,92,61,.08)}
+  .card .ico{width:46px;height:46px;border-radius:12px;background:var(--vert-profond);color:var(--creme);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:1.4rem}
+  .card h3{font-size:1.2rem;margin-bottom:8px}
+  .card p{font-size:.95rem;opacity:.82}
+  .tag-creole{display:inline-block;margin-top:12px;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--vert);background:var(--creme-fonce);padding:3px 10px;border-radius:999px}
+
+  /* Donation */
+  .don{background:var(--vert-profond);color:var(--creme);border-radius:24px;padding:56px 40px;text-align:center;position:relative;overflow:hidden}
+  .don::before{content:"";position:absolute;left:-80px;bottom:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(231,200,137,.16),transparent 70%);border-radius:50%}
+  .don .inner{position:relative;z-index:2;max-width:54ch;margin:0 auto}
+  .don .eyebrow{color:var(--dore-clair)}
+  .don h2{color:var(--creme);font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:16px}
+  .don p{color:rgba(246,243,234,.88);margin-bottom:32px;font-size:1.08rem}
+  .don .btn-don{font-size:1.05rem;padding:14px 34px}
+  .don small{display:block;margin-top:20px;color:rgba(246,243,234,.6);font-size:.85rem}
+
+  /* News */
+  .news-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+  .news-item{background:var(--blanc);border:1px solid var(--creme-fonce);border-radius:12px;padding:18px 20px;font-size:.92rem;font-weight:500;color:var(--vert-profond);display:flex;align-items:center;gap:10px}
+  .news-item::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dore);flex-shrink:0}
+
+  /* Footer */
+  footer{background:var(--encre);color:rgba(246,243,234,.75);padding:56px 0 32px;margin-top:24px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:40px}
+  footer .brand-name{color:var(--creme)}
+  footer h4{font-family:'Fraunces',serif;color:var(--creme);font-size:1.05rem;margin-bottom:16px;font-weight:500}
+  footer a{display:block;font-size:.92rem;margin-bottom:8px;transition:color .2s}
+  footer a:hover{color:var(--dore-clair)}
+  footer p.slogan{font-size:.92rem;margin-top:12px;max-width:32ch;font-style:italic}
+  .foot-bottom{border-top:1px solid rgba(246,243,234,.12);padding-top:24px;text-align:center;font-size:.85rem;color:rgba(246,243,234,.5)}
+
+  @media(max-width:760px){
+    .nav-links{position:fixed;inset:72px 0 auto 0;background:var(--creme);flex-direction:column;gap:0;padding:8px 0;border-bottom:1px solid var(--creme-fonce);display:none}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 24px;width:100%}
+    .menu-toggle{display:block}
+    .foot-grid{grid-template-columns:1fr;gap:28px}
+    .player{flex-wrap:wrap}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img src="assets/logo.jpeg" alt="Logo Radio Fleurs de Dieu">
+      <span class="brand-name">Radio Fleurs de Dieu</span>
+    </a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#ecouter">Écouter</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#nouvelles">Nouvelles</a>
+      <a href="don.html" class="btn-don">Faire un don</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero" id="ecouter">
+  <div class="wrap">
+    <span class="eyebrow">Radio chrétienne adventiste en ligne</span>
+    <h1>Une proximité avec Dieu dans l'évangélisation</h1>
+    <p class="lead">Prières, témoignages, musique chrétienne et nouvelles, en français et en créole. Écoutez Radio Fleurs de Dieu où que vous soyez.</p>
+
+    <div class="player">
+      <button class="play-btn" id="playBtn" aria-label="Lecture / pause">
+        <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
+      <div class="player-info">
+        <div class="player-status"><span class="live-dot" id="liveDot"></span><span id="statusTxt">En direct</span></div>
+        <div class="player-title">Radio Fleurs de Dieu</div>
+        <div class="player-sub">RFDD · Stream en continu</div>
+        <div class="vol">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(246,243,234,.7)"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4z"/></svg>
+          <input type="range" id="vol" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+        </div>
+      </div>
+    </div>
+    <audio id="audio" preload="none" crossorigin="anonymous">
+      <source src="https://stream.zeno.fm/wsm8528kuhruv" type="audio/mpeg">
+    </audio>
+  </div>
+</section>
+
+<section class="block" id="programmes">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Nos programmes</span>
+      <h2>Une programmation pour nourrir la foi</h2>
+      <p>Du contenu spirituel chaque jour, en français et en créole, pour vous accompagner.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🙏</div>
+        <h3>Prières</h3>
+        <p>Des moments de prière pour commencer et clore la journée dans le recueillement.</p>
+      </div>
+      <div class="card">
+        <div class="ico">✨</div>
+        <h3>Témoignages</h3>
+        <p>Des histoires de vie qui révèlent la fidélité de Dieu et fortifient l'espérance.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎵</div>
+        <h3>Musique chrétienne</h3>
+        <p>Louange et adoration adventistes, sélectionnées pour élever le cœur.</p>
+      </div>
+      <div class="card">
+        <div class="ico">📰</div>
+        <h3>Nouvelles chrétiennes</h3>
+        <p>L'actualité des églises et du monde chrétien, mise à jour régulièrement.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎙️</div>
+        <h3>Bulletin créole</h3>
+        <p>Chaque semaine, 30 minutes d'information présentées en créole haïtien.</p>
+        <span class="tag-creole">Hebdomadaire · Kreyòl</span>
+      </div>
+      <div class="card">
+        <div class="ico">📖</div>
+        <h3>Évangélisation</h3>
+        <p>Des messages d'espérance pour partager la Bonne Nouvelle au quotidien.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="nouvelles" style="background:var(--creme-fonce)">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Nos sources d'information</span>
+      <h2>Des nouvelles fiables et chrétiennes</h2>
+      <p>Nos bulletins d'actualité s'appuient sur des sources reconnues.</p>
+    </div>
+    <div class="news-list">
+      <div class="news-item">Info Chrétienne</div>
+      <div class="news-item">Morning Star News</div>
+      <div class="news-item">Euronews Français</div>
+      <div class="news-item">Africanews Français</div>
+      <div class="news-item">France 24</div>
+      <div class="news-item">Nouvelles des églises d'Haïti</div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="don">
+      <div class="inner">
+        <span class="eyebrow">Soutenez le ministère</span>
+        <h2>Votre don fait grandir la radio</h2>
+        <p>Radio Fleurs de Dieu est un projet bénévole. Votre générosité nous aide à diffuser l'Évangile, à produire nos programmes et à toucher davantage de cœurs, chaque jour.</p>
+        <a href="don.html" class="btn-don">Faire un don maintenant</a>
+        <small>Paiement sécurisé par Stripe · Carte bancaire et Apple Pay</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="brand-name" style="font-size:1.2rem">Radio Fleurs de Dieu</span>
+        <p class="slogan">« Une proximité avec Dieu dans l'évangélisation »</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <a href="#ecouter">Écouter en direct</a>
+        <a href="#programmes">Programmes</a>
+        <a href="#nouvelles">Nouvelles</a>
+        <a href="don.html">Faire un don</a>
+      </div>
+      <div>
+        <h4>La radio</h4>
+        <a href="#">Radio chrétienne adventiste</a>
+        <a href="#">Français · Créole</a>
+        <a href="#">Diffusion en ligne 24/7</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      © <span id="year"></span> Radio Fleurs de Dieu (RFDD). Tous droits réservés.
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuToggle = document.getElementById('menuToggle');
+  const navlinks = document.getElementById('navlinks');
+  menuToggle.addEventListener('click', () => navlinks.classList.toggle('open'));
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navlinks.classList.remove('open')));
+
+  const audio = document.getElementById('audio');
+  const playBtn = document.getElementById('playBtn');
+  const iconPlay = document.getElementById('iconPlay');
+  const iconPause = document.getElementById('iconPause');
+  const statusTxt = document.getElementById('statusTxt');
+  const liveDot = document.getElementById('liveDot');
+  const vol = document.getElementById('vol');
+
+  audio.volume = 0.8;
+  let playing = false;
+
+  playBtn.addEventListener('click', () => {
+    if(!playing){
+      audio.src = "https://stream.zeno.fm/wsm8528kuhruv";
+      statusTxt.textContent = "Connexion…";
+      audio.play().then(()=>{
+        playing = true;
+        iconPlay.style.display='none';
+        iconPause.style.display='block';
+        statusTxt.textContent = "En direct";
+        liveDot.classList.add('on');
+      }).catch(()=>{
+        statusTxt.textContent = "Indisponible";
+      });
+    } else {
+      audio.pause();
+      playing = false;
+      iconPlay.style.display='block';
+      iconPause.style.display='none';
+      statusTxt.textContent = "En pause";
+      liveDot.classList.remove('on');
+    }
+  });
+
+  vol.addEventListener('input', e => audio.volume = e.target.value);
+  audio.addEventListener('stalled', ()=> statusTxt.textContent = "Reconnexion…");
+  audio.addEventListener('playing', ()=>{ statusTxt.textContent = "En direct"; liveDot.classList.add('on'); });
+</script>
+
+</body>
+</html>
