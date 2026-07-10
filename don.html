@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faire un don — Radio Fleurs de Dieu</title>
-<meta name="description" content="Soutenez Radio Fleurs de Dieu par un don sécurisé. Votre générosité aide à diffuser l'Évangile en français et en créole.">
+<title>Faire un don / Donate — Radio Fleurs de Dieu</title>
+<meta name="description" content="Soutenez Radio Fleurs de Dieu par un don ponctuel ou mensuel. Support Radio Fleurs de Dieu with a one-time or monthly gift.">
 <link rel="icon" type="image/jpeg" href="logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,53 +21,58 @@
   h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:500;color:var(--encre);line-height:1.15}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .en{font-style:italic;opacity:.75;font-weight:400}
 
   header{position:sticky;top:0;z-index:50;background:rgba(246,243,234,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--creme-fonce)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
   .brand{display:flex;align-items:center;gap:12px}
   .brand img{height:46px;width:auto;border-radius:6px}
   .brand-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--vert-profond)}
-  .nav-links{display:flex;align-items:center;gap:28px}
-  .nav-links a{font-size:.95rem;font-weight:500;transition:color .2s}
-  .nav-links a:hover{color:var(--vert)}
   .back{font-size:.92rem;color:var(--vert);font-weight:500}
 
-  .hero-don{background:linear-gradient(160deg,var(--vert-profond),var(--vert) 70%,#27693f);color:var(--creme);padding:64px 0 72px;text-align:center;position:relative;overflow:hidden}
+  .hero-don{background:linear-gradient(160deg,var(--vert-profond),var(--vert) 70%,#27693f);color:var(--creme);padding:60px 0 68px;text-align:center;position:relative;overflow:hidden}
   .hero-don::after{content:"";position:absolute;right:-100px;top:-60px;width:380px;height:380px;background:radial-gradient(circle,rgba(231,200,137,.18),transparent 70%);border-radius:50%}
   .hero-don .wrap{position:relative;z-index:2;max-width:62ch}
   .eyebrow{display:inline-block;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dore-clair);font-weight:600;margin-bottom:18px}
-  .hero-don h1{color:var(--creme);font-size:clamp(2rem,4.5vw,3rem);margin-bottom:16px}
-  .hero-don p{font-size:1.12rem;color:rgba(246,243,234,.9);max-width:50ch;margin:0 auto}
+  .hero-don h1{color:var(--creme);font-size:clamp(2rem,4.5vw,3rem);margin-bottom:14px}
+  .hero-don h1 .en{color:var(--dore-clair);opacity:.9}
+  .hero-don p{font-size:1.08rem;color:rgba(246,243,234,.9);max-width:52ch;margin:0 auto}
+  .hero-don p .en{color:rgba(246,243,234,.7)}
 
-  .main{padding:64px 0}
-  .don-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
+  .main{padding:52px 0 64px}
 
-  .give-card{background:var(--blanc);border:1px solid var(--creme-fonce);border-radius:24px;padding:40px;box-shadow:0 16px 40px rgba(31,92,61,.07)}
-  .give-card h2{font-size:1.7rem;margin-bottom:8px}
-  .give-card .sub{opacity:.82;margin-bottom:28px}
-  .amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-  .amt{background:var(--creme);border:1.5px solid var(--creme-fonce);border-radius:12px;padding:16px 0;text-align:center;font-weight:600;font-size:1.1rem;color:var(--vert-profond);cursor:pointer;transition:all .15s}
-  .amt:hover,.amt.active{border-color:var(--vert);background:var(--vert-profond);color:var(--creme)}
-  .btn-don{display:block;width:100%;background:var(--dore);color:var(--encre);padding:16px;border-radius:999px;font-weight:600;font-size:1.08rem;text-align:center;border:none;cursor:pointer;transition:transform .15s,background .2s}
-  .btn-don:hover{background:var(--dore-clair);transform:translateY(-2px)}
-  .secure{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;font-size:.85rem;opacity:.7}
-  .secure svg{width:16px;height:16px}
+  .tabs{display:flex;gap:8px;justify-content:center;margin-bottom:36px;flex-wrap:wrap}
+  .tab{background:var(--blanc);border:1.5px solid var(--creme-fonce);border-radius:999px;padding:12px 26px;font-weight:600;font-size:.98rem;color:var(--vert-profond);cursor:pointer;transition:all .15s}
+  .tab .en{font-size:.85em}
+  .tab.active{background:var(--vert-profond);color:var(--creme);border-color:var(--vert-profond)}
+  .tab.active .en{color:var(--dore-clair)}
 
-  .why h2{font-size:1.6rem;margin-bottom:20px}
-  .why ul{list-style:none}
-  .why li{display:flex;gap:14px;margin-bottom:22px;align-items:flex-start}
-  .why li .b{flex-shrink:0;width:38px;height:38px;border-radius:10px;background:var(--vert-profond);color:var(--creme);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-  .why li h3{font-size:1.08rem;margin-bottom:3px}
-  .why li p{font-size:.95rem;opacity:.82}
-  .verse{margin-top:32px;padding:24px;background:var(--creme-fonce);border-left:4px solid var(--dore);border-radius:0 12px 12px 0;font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:var(--encre)}
+  .panel{display:none}
+  .panel.active{display:block}
+
+  .give-card{background:var(--blanc);border:1px solid var(--creme-fonce);border-radius:24px;padding:40px;box-shadow:0 16px 40px rgba(31,92,61,.07);max-width:640px;margin:0 auto}
+  .give-card h2{font-size:1.55rem;margin-bottom:8px;text-align:center}
+  .give-card .sub{opacity:.82;margin-bottom:28px;text-align:center;font-size:.98rem}
+
+  .amounts{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:420px;margin:0 auto}
+  .amt{display:block;background:var(--creme);border:1.5px solid var(--creme-fonce);border-radius:14px;padding:22px 0;text-align:center;font-weight:600;font-size:1.3rem;color:var(--vert-profond);cursor:pointer;transition:all .15s;text-decoration:none}
+  .amt:hover{border-color:var(--vert);background:var(--vert-profond);color:var(--creme);transform:translateY(-2px)}
+  .amt small{display:block;font-size:.68rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;opacity:.7;margin-top:4px}
+
+  .free-btn{display:block;width:100%;background:var(--dore);color:var(--encre);padding:18px;border-radius:999px;font-weight:600;font-size:1.08rem;text-align:center;text-decoration:none;transition:transform .15s,background .2s}
+  .free-btn:hover{background:var(--dore-clair);transform:translateY(-2px)}
+  .free-btn .en{font-size:.85em}
+
+  .secure{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;font-size:.83rem;opacity:.7;text-align:center}
+  .secure svg{width:16px;height:16px;flex-shrink:0}
+
+  .verse{margin:40px auto 0;max-width:640px;padding:24px;background:var(--creme-fonce);border-left:4px solid var(--dore);border-radius:0 12px 12px 0;font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:var(--encre)}
   .verse span{display:block;margin-top:8px;font-size:.85rem;font-style:normal;font-family:'Inter';opacity:.7}
 
   footer{background:var(--encre);color:rgba(246,243,234,.5);padding:32px 0;text-align:center;font-size:.85rem;margin-top:24px}
 
-  @media(max-width:760px){
-    .don-grid{grid-template-columns:1fr;gap:36px}
-    .nav-links{gap:18px}
-    .nav-links a:not(.back){display:none}
+  @media(max-width:600px){
+    .give-card{padding:28px}
   }
 </style>
 </head>
@@ -79,76 +84,75 @@
       <img src="logo.jpeg" alt="Logo Radio Fleurs de Dieu">
       <span class="brand-name">Radio Fleurs de Dieu</span>
     </a>
-    <nav class="nav-links">
-      <a href="index.html" class="back">← Retour à l'accueil</a>
+    <nav>
+      <a href="index.html" class="back">&larr; Retour &agrave; l'accueil / Home</a>
     </nav>
   </div>
 </header>
 
 <section class="hero-don">
   <div class="wrap">
-    <span class="eyebrow">Soutenez le ministère</span>
-    <h1>Faire un don à Radio Fleurs de Dieu</h1>
-    <p>Votre générosité nous permet de diffuser l'Évangile en français et en créole, et de toucher des cœurs partout dans le monde.</p>
+    <span class="eyebrow">Soutenez le minist&egrave;re &middot; Support the ministry</span>
+    <h1>Faire un don <span class="en">/ Donate</span></h1>
+    <p>Votre g&eacute;n&eacute;rosit&eacute; nous permet de diffuser l'&Eacute;vangile en fran&ccedil;ais et en cr&eacute;ole. <span class="en">Your generosity helps us spread the Gospel in French and Creole.</span></p>
   </div>
 </section>
 
 <section class="main">
-  <div class="wrap don-grid">
+  <div class="wrap">
 
-    <div class="give-card">
-      <h2>Choisissez votre don</h2>
-      <p class="sub">Chaque contribution, petite ou grande, soutient la mission.</p>
-      <div class="amounts">
-        <div class="amt">10 $</div>
-        <div class="amt active">25 $</div>
-        <div class="amt">50 $</div>
-        <div class="amt">100 $</div>
-        <div class="amt">250 $</div>
-        <div class="amt">Autre</div>
-      </div>
-      <a href="https://buy.stripe.com/test_8x23cveQe1Eu8Z505qa3u00" class="btn-don" id="donLink" target="_blank" rel="noopener">Donner par carte ou Apple Pay</a>
-      <div class="secure">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4zm0 6a3 3 0 00-3 3v1H8v6h8v-6h-1v-1a3 3 0 00-3-3zm0 2a1 1 0 011 1v1h-2v-1a1 1 0 011-1z"/></svg>
-        Paiement 100 % sécurisé par Stripe
+    <div class="tabs">
+      <button class="tab active" data-tab="ponctuel">Don ponctuel <span class="en">/ One-time</span></button>
+      <button class="tab" data-tab="mensuel">Don mensuel <span class="en">/ Monthly</span></button>
+    </div>
+
+    <div class="panel active" id="ponctuel">
+      <div class="give-card">
+        <h2>Faire un don ponctuel</h2>
+        <p class="sub">Choisissez le montant que vous souhaitez offrir, une seule fois.<br><span class="en">Choose the amount you wish to give, one time.</span></p>
+        <a href="https://buy.stripe.com/8x23cveQe1Eu8Z505qa3u00" class="free-btn" target="_blank" rel="noopener">Donner le montant de mon choix <span class="en">/ Give any amount</span></a>
+        <div class="secure">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4zm0 6a3 3 0 00-3 3v1H8v6h8v-6h-1v-1a3 3 0 00-3-3zm0 2a1 1 0 011 1v1h-2v-1a1 1 0 011-1z"/></svg>
+          Paiement s&eacute;curis&eacute; par Stripe &middot; Secure payment &middot; Carte / Apple Pay
+        </div>
       </div>
     </div>
 
-    <div class="why">
-      <h2>Pourquoi donner ?</h2>
-      <ul>
-        <li>
-          <span class="b">📡</span>
-          <div><h3>Diffusion continue</h3><p>Vos dons couvrent les frais de streaming pour garder la radio à l'antenne 24h/24.</p></div>
-        </li>
-        <li>
-          <span class="b">🎙️</span>
-          <div><h3>Production des programmes</h3><p>Prières, témoignages et le bulletin créole hebdomadaire prennent vie grâce à vous.</p></div>
-        </li>
-        <li>
-          <span class="b">🌍</span>
-          <div><h3>Évangélisation élargie</h3><p>Plus de moyens, c'est plus de cœurs touchés par la Bonne Nouvelle, partout.</p></div>
-        </li>
-      </ul>
-      <div class="verse">
-        « Que chacun donne comme il l'a résolu en son cœur, sans tristesse ni contrainte ; car Dieu aime celui qui donne avec joie. »
-        <span>2 Corinthiens 9.7</span>
+    <div class="panel" id="mensuel">
+      <div class="give-card">
+        <h2>Devenir donateur mensuel</h2>
+        <p class="sub">Soutenez la radio chaque mois. Annulable &agrave; tout moment.<br><span class="en">Support the radio every month. Cancel anytime.</span></p>
+        <div class="amounts">
+          <a href="https://buy.stripe.com/14A4gz8rQ82Sdfl9G0a3u05" class="amt" target="_blank" rel="noopener">25 $<small>par mois / monthly</small></a>
+          <a href="https://buy.stripe.com/dRm00j6jIcj86QX6tOa3u06" class="amt" target="_blank" rel="noopener">50 $<small>par mois / monthly</small></a>
+        </div>
+        <div class="secure">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l9 4v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4zm0 6a3 3 0 00-3 3v1H8v6h8v-6h-1v-1a3 3 0 00-3-3zm0 2a1 1 0 011 1v1h-2v-1a1 1 0 011-1z"/></svg>
+          Pr&eacute;l&egrave;vement mensuel s&eacute;curis&eacute; par Stripe &middot; Secure monthly billing
+        </div>
       </div>
+    </div>
+
+    <div class="verse">
+      &laquo; Que chacun donne comme il l'a r&eacute;solu en son c&oelig;ur, sans tristesse ni contrainte ; car Dieu aime celui qui donne avec joie. &raquo;
+      <span>2 Corinthiens 9.7 &middot; 2 Corinthians 9:7</span>
     </div>
 
   </div>
 </section>
 
 <footer>
-  <div class="wrap">© <span id="year"></span> Radio Fleurs de Dieu (RFDD) · « Une proximité avec Dieu dans l'évangélisation »</div>
+  <div class="wrap">&copy; <span id="year"></span> Radio Fleurs de Dieu (RFDD) &middot; &laquo; Une proximit&eacute; avec Dieu dans l'&eacute;vang&eacute;lisation &raquo;</div>
 </footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-  document.querySelectorAll('.amt').forEach(a=>{
-    a.addEventListener('click',()=>{
-      document.querySelectorAll('.amt').forEach(x=>x.classList.remove('active'));
-      a.classList.add('active');
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
     });
   });
 </script>
