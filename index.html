@@ -280,7 +280,90 @@
   </div>
 </section>
 
-<footer>
+<section id="dernieres-emissions" style="background:#f8f4ea; padding:50px 20px;">
+  <style>
+    #dernieres-emissions .de-inner { max-width: 1100px; margin: 0 auto; }
+    #dernieres-emissions h2 { text-align:center; font-size:1.6rem; margin:0 0 8px; color:#16332a; }
+    #dernieres-emissions .de-sub { text-align:center; color:#6b6b62; margin:0 0 28px; }
+    #dernieres-emissions .de-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      gap:16px; margin-bottom:28px;
+    }
+    #dernieres-emissions .de-card {
+      background:white; border-radius:12px; padding:16px;
+      border-left:5px solid #c9a35a; box-shadow:0 1px 4px rgba(0,0,0,0.06);
+    }
+    #dernieres-emissions .de-badge {
+      display:inline-block; font-size:0.75rem; font-weight:700; text-transform:uppercase;
+      color:white; padding:3px 10px; border-radius:20px; margin-bottom:8px;
+    }
+    #dernieres-emissions .de-card h3 { margin:0 0 4px; font-size:1rem; color:#2b2b26; }
+    #dernieres-emissions .de-date { font-size:0.78rem; color:#6b6b62; margin-bottom:8px; }
+    #dernieres-emissions .de-extrait { font-size:0.88rem; color:#2b2b26; line-height:1.5; margin:0; }
+    #dernieres-emissions .de-cta { text-align:center; }
+    #dernieres-emissions .de-cta a {
+      display:inline-block; background:#16332a; color:white; padding:10px 22px;
+      border-radius:24px; text-decoration:none; font-size:0.9rem; font-weight:600;
+    }
+    #dernieres-emissions .de-empty { text-align:center; color:#6b6b62; }
+  </style>
+  <div class="de-inner">
+    <h2>Archive des émissions</h2>
+    <p class="de-sub">Écoutez les prières, témoignages et bulletins précédents</p>
+    <div class="de-grid" id="de-grid">
+      <p class="de-empty">Chargement...</p>
+    </div>
+    <div class="de-cta">
+      <a href="archives.html">Voir toutes les archives</a>
+    </div>
+  </div>
+</section>
+<script>
+(function() {
+  const CATEGORIES = {
+    priere_matin: { label: "Prière Matin", icon: "🌅", color: "#c8802b" },
+    priere_soir:  { label: "Prière Soir",  icon: "🌙", color: "#5b4b8a" },
+    temoignage:   { label: "Témoignage",   icon: "❤️", color: "#b3495f" },
+    nouvelles:    { label: "Nouvelles",    icon: "📰", color: "#3a6ea5" },
+  };
+  const MOIS_FR = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+
+  function formatDateLongue(iso) {
+    const d = new Date(iso + "T12:00:00");
+    return `${d.getDate()} ${MOIS_FR[d.getMonth()]} ${d.getFullYear()}`;
+  }
+
+  fetch("data/index.json", { cache: "no-store" })
+    .then(r => { if (!r.ok) throw new Error("pas d'archives"); return r.json(); })
+    .then(entrees => {
+      const grid = document.getElementById("de-grid");
+      if (!entrees.length) {
+        grid.innerHTML = `<p class="de-empty">Les premières émissions arrivent bientôt.</p>`;
+        return;
+      }
+      entrees.sort((a, b) => b.date.localeCompare(a.date));
+      const dernieres = entrees.slice(0, 3);
+      grid.innerHTML = "";
+      dernieres.forEach(entree => {
+        const meta = CATEGORIES[entree.categorie] || { label: entree.categorie, icon: "🔹", color: "#888" };
+        const card = document.createElement("div");
+        card.className = "de-card";
+        card.style.borderLeftColor = meta.color;
+        card.innerHTML = `
+          <span class="de-badge" style="background:${meta.color}">${meta.icon} ${meta.label}</span>
+          <h3>${entree.titre}</h3>
+          <div class="de-date">${formatDateLongue(entree.date)}</div>
+          <p class="de-extrait">${entree.extrait}</p>
+        `;
+        grid.appendChild(card);
+      });
+    })
+    .catch(() => {
+      document.getElementById("de-grid").innerHTML =
+        `<p class="de-empty">Les premières émissions arrivent bientôt.</p>`;
+    });
+})();
+</script><footer>
   <div class="wrap">
     <div class="foot-grid">
       <div>
