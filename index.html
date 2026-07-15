@@ -173,6 +173,7 @@
       <a href="#direct">Écouter</a>
       <a href="#actualites">Nouvelles</a>
       <a href="#archives">Archives</a>
+      <a href="priere.html">Demande de prière</a>
       <a class="btn-don" href="don.html">Faire un don / Donate</a>
     </nav>
     <button class="menu-toggle" onclick="document.getElementById('menu').classList.toggle('open')">☰</button>
@@ -506,8 +507,4 @@ function renderArchive(){
   }).join("");
 }
 
-chargerManifeste().then(function(){ render(); renderArchive(); });
-loadWeather(false);
-</script>
-</body>
-</html>
+chargerManifeste().then(function(){ render(); renderArchive(); 
