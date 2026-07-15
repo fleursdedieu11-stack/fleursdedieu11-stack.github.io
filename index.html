@@ -132,6 +132,8 @@
   .src-grid{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:820px;margin:0 auto}
   .src-chip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 22px;display:flex;align-items:center;gap:10px;font-weight:600;color:var(--green-900)}
   .src-chip.dot::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--gold)}
+  a.src-chip{transition:.15s;cursor:pointer}
+  a.src-chip:hover{border-color:var(--green-600);color:var(--gold-2);transform:translateY(-1px)}
 
   /* Don */
   .don{background:var(--cream-2)}
@@ -236,12 +238,12 @@
     <h2 class="h2 serif">Des nouvelles fiables et chrétiennes</h2>
     <p class="sub">Nos bulletins d'actualité s'appuient sur des sources reconnues.</p>
     <div class="src-grid">
-      <div class="src-chip dot">Info Chrétienne</div>
-      <div class="src-chip dot">Morning Star News</div>
-      <div class="src-chip dot">Euronews Français</div>
-      <div class="src-chip dot">Africanews Français</div>
-      <div class="src-chip dot">France 24</div>
-      <div class="src-chip dot">Nouvelles des églises d'Haïti</div>
+      <a class="src-chip dot" href="https://www.infochretienne.com/" target="_blank" rel="noopener">Info Chrétienne</a>
+      <a class="src-chip dot" href="https://morningstarnews.org/" target="_blank" rel="noopener">Morning Star News</a>
+      <a class="src-chip dot" href="https://fr.euronews.com/" target="_blank" rel="noopener">Euronews Français</a>
+      <a class="src-chip dot" href="https://fr.africanews.com/" target="_blank" rel="noopener">Africanews Français</a>
+      <a class="src-chip dot" href="https://www.france24.com/fr/" target="_blank" rel="noopener">France 24</a>
+      <a class="src-chip dot" href="https://news.google.com/search?q=Ha%C3%AFti%20%C3%A9glise%20chr%C3%A9tienne&hl=fr" target="_blank" rel="noopener">Nouvelles des églises d'Haïti</a>
     </div>
   </div>
 </section>
@@ -486,7 +488,6 @@ async function loadWeather(panel){
     }
   }
 }
-
 
 /* ---------- ARCHIVE (depuis le manifeste) ---------- */
 const ICONES_CAT = {priere_matin:"\u{1F64F}", priere_soir:"\u{1F319}", temoignage:"❤️", nouvelles:"\u{1F4F0}"};
