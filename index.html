@@ -330,7 +330,7 @@ const TABS = [
     ref:"Psaume 4:9",
     body:"Clôturez la journée dans la reconnaissance et confiez votre nuit au Seigneur." },
 
-  { id:"bulletin", label:"Bulletin créole", icon:"📻", type:"text",
+  { id:"bulletin", label:"Bulletin créole", icon:"📻", type:"text", jsonCat:"bulletin_creole",
     title:"Bilten kreyòl · Bulletin créole",
     verse:"Chak samdi maten — yon rezime tout nouvèl kretyen semèn nan, an kreyòl, pou pi piti 30 minit.",
     ref:"Hebdomadaire · Kreyòl · Samedi matin",
@@ -406,12 +406,20 @@ function renderAudio(t){
 }
 
 function renderText(t){
-  panelEl.innerHTML=
-    '<div class="featured">'+
-      '<h3>'+t.title+'</h3>'+
-      '<p class="verse">'+t.verse+'<span class="verse-ref">'+t.ref+'</span></p>'+
-      '<div class="body"><p>'+t.body+'</p></div>'+
-    '</div>';
+  const e = t.jsonCat ? dernierProgramme(t.jsonCat) : null;
+  const titre = e ? (e.titre || t.title) : t.title;
+  const corps = e ? e.extrait : t.body;
+  let html = '<div class="featured"><h3>' + titre + '</h3>' +
+    '<p class="verse">' + t.verse + '<span class="verse-ref">' + t.ref + '</span></p>';
+  if(e && e.extrait){
+    corps.split(/\n\n+/).forEach(function(par){
+      if(par.trim()) html += '<div class="body"><p>' + par.trim() + '</p></div>';
+    });
+  } else {
+    html += '<div class="body"><p>' + t.body + '</p></div>';
+  }
+  html += '</div>';
+  panelEl.innerHTML = html;
 }
 
 function renderWeatherPanel(){
