@@ -9,6 +9,7 @@
   :root {
     --vert-fonce: #1f5c3d;
     --vert-fonce2: #2e7d52;
+    --vert-pale: #e3ede4;
     --or: #c79a4b;
     --creme: #f6f3ea;
     --texte: #33403a;
@@ -75,6 +76,46 @@
     color: var(--texte-clair);
     margin-bottom: 8px;
   }
+  .date-tools {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .date-picker-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--creme);
+    border: 1px solid #ddd6c5;
+    border-radius: 10px;
+    padding: 7px 12px;
+  }
+  .date-picker-wrap label { font-size: 0.85rem; color: var(--texte-clair); font-weight: 600; }
+  .date-picker-wrap input[type=date] {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--vert-fonce);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .date-picker-wrap input[type=date]:focus { outline: none; }
+  .btn-all-archives {
+    background: var(--vert-fonce);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-all-archives:hover { background: var(--vert-fonce2); }
   .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
   .pills:last-child { margin-bottom: 0; }
   .pill {
@@ -93,17 +134,12 @@
     color: white;
     border-color: var(--vert-fonce);
   }
-  .date-input {
-    border: 1px solid #ddd6c5;
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 0.85rem;
-  }
 
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 18px;
+    align-items: stretch;
   }
   .card {
     background: white;
@@ -114,7 +150,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: box-shadow .2s, transform .2s;
   }
+  .card:hover { box-shadow: 0 6px 18px rgba(31,92,61,0.12); transform: translateY(-2px); }
   .card-badge {
     display: inline-flex;
     align-items: center;
@@ -139,8 +177,33 @@
     font-size: 0.88rem;
     color: var(--texte-clair);
   }
-  .card p.extrait { margin: 0; font-size: 0.92rem; line-height: 1.5; color: var(--texte); }
+  .card p.extrait {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--texte);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .card audio { width: 100%; margin-top: 4px; }
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--vert-fonce);
+    color: white;
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    align-self: flex-start;
+    margin-top: auto;
+    transition: background .2s;
+  }
+  .read-more:hover { background: var(--vert-fonce2); }
 
   .empty, .loading {
     grid-column: 1 / -1;
@@ -181,7 +244,14 @@
 
 <main class="container">
   <div class="filters">
-    <div class="filters-label">Sélectionner une date</div>
+    <div class="filters-label">📅 Sélectionner une date</div>
+    <div class="date-tools">
+      <div class="date-picker-wrap">
+        <label for="date-picker">🗓️ Choisir une date :</label>
+        <input type="date" id="date-picker">
+      </div>
+      <button class="btn-all-archives" id="btnAllArchives">📚 Voir toutes les archives</button>
+    </div>
     <div class="pills" id="datePills"></div>
     <div class="filters-label">Catégorie</div>
     <div class="pills" id="categoryPills"></div>
@@ -199,10 +269,11 @@
 
 <script>
 const CATEGORIES = {
-  priere_matin: { label: "Prière Matin", icon: "🌅", color: "#c8802b" },
-  priere_soir:  { label: "Prière Soir",  icon: "🌙", color: "#5b4b8a" },
-  temoignage:   { label: "Témoignage",   icon: "❤️", color: "#b3495f" },
-  nouvelles:    { label: "Nouvelles",    icon: "📰", color: "#3a6ea5" },
+  priere_matin:   { label: "Prière Matin",   icon: "🌅", color: "#c8802b" },
+  priere_soir:    { label: "Prière Soir",    icon: "🌙", color: "#5b4b8a" },
+  temoignage:     { label: "Témoignage",     icon: "❤️", color: "#b3495f" },
+  nouvelles:      { label: "Nouvelles",      icon: "📰", color: "#3a6ea5" },
+  bulletin_creole:{ label: "Bulletin créole",icon: "🎙️", color: "#1f5c3d" },
 };
 
 const MOIS_FR = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
@@ -217,6 +288,10 @@ function formatDatePill(iso) {
   const todayIso = new Date().toISOString().slice(0, 10);
   if (iso === todayIso) return "Aujourd'hui";
   return `${JOURS_FR[d.getDay()]} ${d.getDate()} ${MOIS_FR[d.getMonth()].slice(0,4)}.`;
+}
+function excerpt(text, n = 170) {
+  if (!text) return "";
+  return text.length > n ? text.slice(0, n).trimEnd() + "…" : text;
 }
 
 let TOUTES_ENTREES = [];
@@ -242,7 +317,21 @@ async function charger() {
   }
 
   TOUTES_ENTREES.sort((a, b) => b.date.localeCompare(a.date));
+  TOUTES_ENTREES.forEach((e, i) => { e.__idx = i; });
   dateSelectionnee = TOUTES_ENTREES[0].date;
+
+  const dates = [...new Set(TOUTES_ENTREES.map(e => e.date))].sort((a, b) => b.localeCompare(a));
+  const picker = document.getElementById("date-picker");
+  picker.max = dates[0];
+  picker.min = dates[dates.length - 1];
+  picker.value = dateSelectionnee;
+  picker.onchange = () => { dateSelectionnee = picker.value; construireFiltres(); rendre(); };
+
+  document.getElementById("btnAllArchives").onclick = () => {
+    dateSelectionnee = null;
+    construireFiltres();
+    rendre();
+  };
 
   construireFiltres();
   rendre();
@@ -263,19 +352,14 @@ function construireFiltres() {
     const btn = document.createElement("button");
     btn.className = "pill" + (dateSelectionnee === iso ? " active" : "");
     btn.textContent = formatDatePill(iso);
-    btn.onclick = () => { dateSelectionnee = iso; construireFiltres(); rendre(); };
+    btn.onclick = () => {
+      dateSelectionnee = iso;
+      document.getElementById("date-picker").value = iso;
+      construireFiltres();
+      rendre();
+    };
     datePillsEl.appendChild(btn);
   });
-
-  if (dates.length > 7) {
-    const input = document.createElement("input");
-    input.type = "date";
-    input.className = "date-input";
-    input.max = dates[0];
-    input.min = dates[dates.length - 1];
-    input.onchange = () => { dateSelectionnee = input.value; construireFiltres(); rendre(); };
-    datePillsEl.appendChild(input);
-  }
 
   const catPillsEl = document.getElementById("categoryPills");
   catPillsEl.innerHTML = "";
@@ -283,7 +367,7 @@ function construireFiltres() {
 
   const btnTout = document.createElement("button");
   btnTout.className = "pill" + (categorieSelectionnee === "tout" ? " active" : "");
-  btnTout.textContent = "Tout";
+  btnTout.textContent = "📋 Tout";
   btnTout.onclick = () => { categorieSelectionnee = "tout"; construireFiltres(); rendre(); };
   catPillsEl.appendChild(btnTout);
 
@@ -315,17 +399,17 @@ function rendre() {
     card.className = "card";
     card.style.borderLeftColor = meta.color;
 
-    const versetHtml = entree.verset
-      ? `<blockquote>${entree.verset}</blockquote>`
-      : "";
+    const versetHtml = entree.verset ? `<blockquote>${entree.verset}</blockquote>` : "";
+    const audioHtml = entree.audio ? `<audio controls preload="none" src="${entree.audio}"></audio>` : "";
 
     card.innerHTML = `
       <span class="card-badge" style="background:${meta.color}">${meta.icon} ${meta.label}</span>
       <h3>${entree.titre}</h3>
       <div class="card-date">${formatDateLongue(entree.date)}</div>
       ${versetHtml}
-      <p class="extrait">${entree.extrait}</p>
-      <audio controls preload="none" src="${entree.audio}"></audio>
+      <p class="extrait">${excerpt(entree.extrait)}</p>
+      ${audioHtml}
+      <a class="read-more" href="article.html?i=${entree.__idx}">Lire la suite →</a>
     `;
     grid.appendChild(card);
   });

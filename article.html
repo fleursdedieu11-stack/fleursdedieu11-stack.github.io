@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio Fleurs de Dieu — Émission</title>
+<meta name="description" content="Écoutez et lisez le programme complet de Radio Fleurs de Dieu.">
+<style>
+  :root {
+    --vert-fonce: #1f5c3d;
+    --vert-fonce2: #2e7d52;
+    --or: #c79a4b;
+    --creme: #f6f3ea;
+    --texte: #33403a;
+    --texte-clair: #6b6b62;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--creme);
+    color: var(--texte);
+  }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; }
+
+  header {
+    background: var(--vert-fonce);
+    color: white;
+    padding: 14px 20px;
+  }
+  .header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .logo-link { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; }
+  .logo-link img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+  nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; font-size: 0.95rem; }
+  nav a:hover { color: var(--or); }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 34px 20px 60px; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--vert-fonce);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+  }
+  .back-link:hover { color: var(--or); }
+
+  .card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: white;
+    margin-bottom: 14px;
+  }
+  .article-box {
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px 32px;
+    border-left: 5px solid var(--or);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .article-box h1 { font-size: 1.55rem; margin: 0 0 8px; color: var(--vert-fonce); line-height: 1.3; }
+  .article-date { font-size: 0.85rem; color: var(--texte-clair); margin-bottom: 18px; }
+  .article-box blockquote {
+    margin: 0 0 20px;
+    padding: 10px 16px;
+    border-left: 3px solid var(--or);
+    background: var(--creme);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--texte-clair);
+  }
+  .article-box audio { width: 100%; margin-bottom: 20px; }
+  .article-body p { font-size: 1rem; line-height: 1.75; margin: 0 0 16px; }
+
+  .empty { text-align: center; color: var(--texte-clair); padding: 60px 20px; }
+
+  footer {
+    background: var(--vert-fonce);
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--or); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="logo.jpeg" alt="Logo Radio Fleurs de Dieu">
+      <span>Radio Fleurs de Dieu</span>
+    </a>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="archives.html">Archives</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <a class="back-link" href="archives.html">← Retour aux archives</a>
+  <div id="content">
+    <p class="empty">Chargement…</p>
+  </div>
+</main>
+
+<footer>
+  <p>Radio Fleurs de Dieu (RFDD) · « Une proximité avec Dieu dans l'évangélisation »</p>
+  <p><a href="index.html">← Retour à l'accueil</a></p>
+</footer>
+
+<script>
+const CATEGORIES = {
+  priere_matin:   { label: "Prière Matin",   icon: "🌅", color: "#c8802b" },
+  priere_soir:    { label: "Prière Soir",    icon: "🌙", color: "#5b4b8a" },
+  temoignage:     { label: "Témoignage",     icon: "❤️", color: "#b3495f" },
+  nouvelles:      { label: "Nouvelles",      icon: "📰", color: "#3a6ea5" },
+  bulletin_creole:{ label: "Bulletin créole",icon: "🎙️", color: "#1f5c3d" },
+};
+const MOIS_FR = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+
+function formatDateLongue(iso) {
+  const d = new Date(iso + "T12:00:00");
+  return `${d.getDate()} ${MOIS_FR[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+async function charger() {
+  const box = document.getElementById("content");
+  const params = new URLSearchParams(location.search);
+  const i = parseInt(params.get("i"), 10);
+
+  let entrees;
+  try {
+    const reponse = await fetch("data/index.json", { cache: "no-store" });
+    if (!reponse.ok) throw new Error("introuvable");
+    entrees = await reponse.json();
+  } catch (e) {
+    box.innerHTML = `<p class="empty">Impossible de charger cette émission pour le moment.</p>`;
+    return;
+  }
+
+  entrees.sort((a, b) => b.date.localeCompare(a.date));
+  const entree = entrees[i];
+
+  if (!entree) {
+    box.innerHTML = `<p class="empty">Cette émission est introuvable. <a href="archives.html">Retour aux archives →</a></p>`;
+    document.title = "Émission introuvable — Radio Fleurs de Dieu";
+    return;
+  }
+
+  const meta = CATEGORIES[entree.categorie] || { label: entree.categorie, icon: "🔹", color: "#888" };
+  document.title = `${entree.titre} — Radio Fleurs de Dieu`;
+
+  const versetHtml = entree.verset ? `<blockquote>${entree.verset}</blockquote>` : "";
+  const audioHtml = entree.audio ? `<audio controls preload="none" src="${entree.audio}"></audio>` : "";
+  const paragraphes = (entree.extrait || "").split(/\n\n+/)
+    .map(p => p.trim())
+    .filter(Boolean)
+    .map(p => `<p>${p}</p>`)
+    .join("");
+
+  box.innerHTML = `
+    <div class="article-box">
+      <span class="card-badge" style="background:${meta.color}">${meta.icon} ${meta.label}</span>
+      <h1>${entree.titre}</h1>
+      <div class="article-date">${formatDateLongue(entree.date)}</div>
+      ${versetHtml}
+      ${audioHtml}
+      <div class="article-body">${paragraphes}</div>
+    </div>
+  `;
+}
+
+charger();
+</script>
+
+</body>
+</html>
